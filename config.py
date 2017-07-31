@@ -10,4 +10,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 # Define the database
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+SQLALCHEMY_BINDS = {
+    'dex': 'sqlite:///' + os.path.join(BASE_DIR, 'dex.db')
+}
 DATABASE_CONNECT_OPTIONS = {}
