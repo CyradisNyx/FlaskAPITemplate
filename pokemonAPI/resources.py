@@ -1,6 +1,7 @@
 """API Resources."""
 
 from flask_restful import Resource
+from pokemonAPI import db
 
 
 class Trainers(Resource):
@@ -28,10 +29,6 @@ class Pokemon(Resource):
 
     def get(self, id):
         """Get individual tasks info."""
-        pass
-
-    def post(self, id):
-        """Add new task."""
         pass
 
 
