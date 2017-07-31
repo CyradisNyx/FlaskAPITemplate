@@ -1,7 +1,7 @@
 """API Resources."""
 
-from flask_restful import Resource
-from pokemonAPI import db
+from flask_restful import Resource, abort, reqparse
+from pokemonAPI import db, models
 
 
 class Trainers(Resource):
@@ -9,7 +9,11 @@ class Trainers(Resource):
 
     def get(self, name):
         """Get user info."""
-        return {name: 'lol'}
+        temp = models.Trainer.query.get(name)
+        if temp is None:
+            abort(404)
+        else:
+            return {name: temp.pokemon_caught}
 
     def post(self, name):
         """Add new user."""

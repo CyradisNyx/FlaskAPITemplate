@@ -24,7 +24,7 @@ class Pokedex(db.Model):
     __tablename__ = "pokedex"
     name = db.Column(db.String(30))
     dex_id = db.Column(db.Integer, primary_key=True)
-    picture = db.Column(db.String(100))
+    picture = db.Column(db.String(150))
     instances = db.relationship('Pokemon',
                                 backref='pokedex',
                                 lazy='dynamic')
@@ -33,8 +33,8 @@ class Pokedex(db.Model):
         """Constructor Method."""
         self.dex_id = int(poke_id)
         self.name = name
-        self.pictures = os.path.join(app.config['STATIC_DIR'],
-                                     str(poke_id).zfill(3) + ".jpg")
+        self.picture = os.path.join(app.config['STATIC_DIR'],
+                                    str(poke_id).zfill(3) + ".jpg")
 
 
 class Pokemon(db.Model):
@@ -56,7 +56,7 @@ class Pokemon(db.Model):
     """
 
     __tablename__ = "pokemon"
-    id = db.Column(db.Integer, primary_key=True)
+    poke_id = db.Column(db.Integer, primary_key=True)
     species = db.Column(db.Integer, db.ForeignKey('pokedex.dex_id'))
 
 
@@ -70,12 +70,14 @@ class Trainer(db.Model):
         name (str): name of trainer
 
     Attributes:
-        id (str): id of trainer
         name (str): name of trainer
     """
 
     __tablename__ = "trainer"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30))
+    name = db.Column(db.String(30), primary_key=True)
     pokemon_caught = db.Column(db.Integer)
-    pass
+
+    def __init__(self, name):
+        """Constructor Method."""
+        self.name = name
+        self.pokemon_caught = 0
